@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar, Button, List, Result, Spin, Typography } from "antd";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import { useUsersQuery } from "@/entities";
 import { AUTH_TOKEN_STORAGE_KEY } from "@/shared/config";
 import { Content, Footer, Header, Page } from "./UsersPage.styles";
+import { CreateUserModal } from "@/features";
 
 export function UsersPage() {
   const { data: users, isLoading, isError, error, refetch } = useUsersQuery();
   const navigate = useNavigate();
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem(AUTH_TOKEN_STORAGE_KEY);
@@ -69,11 +71,15 @@ export function UsersPage() {
             />
 
             <Footer>
-              <Button type="primary">Создать пользователя</Button>
+              <Button type="primary" onClick={() => setIsCreateOpen(true)}>
+                Создать пользователя
+              </Button>
             </Footer>
           </>
         )}
       </Content>
+
+      <CreateUserModal open={isCreateOpen} onClose={() => setIsCreateOpen(false)} />
     </Page>
   );
 }
