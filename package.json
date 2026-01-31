@@ -1,0 +1,31 @@
+{
+  "name": "users-auth-form",
+  "version": "0.1.0",
+  "private": true,
+  "description": "React v16 + TypeScript app bundled with Webpack",
+  "scripts": {
+    "start": "webpack serve --mode development --open",
+    "build": "webpack --mode production",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "16.14.0",
+    "react-dom": "16.14.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.0",
+    "@babel/preset-typescript": "^7.26.0",
+    "@types/react": "^16.14.0",
+    "@types/react-dom": "^16.9.0",
+    "babel-loader": "^9.2.0",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.3",
+    "style-loader": "^4.0.0",
+    "typescript": "^5.0.0",
+    "webpack": "^5.97.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.2.0"
+  }
+}
