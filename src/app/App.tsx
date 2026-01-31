@@ -1,7 +1,7 @@
 import React from "react";
 import "antd/dist/reset.css";
-import { Navigate, Route, Routes } from "react-router-dom";
-import { HomePage, LoginPage } from "@/pages";
+import { Route, Routes } from "react-router-dom";
+import { HomePage, LoginPage, NotFoundPage } from "@/pages";
 import "./styles/index.css";
 
 export function App() {
@@ -10,7 +10,7 @@ export function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="login" element={<LoginPage />} />
-        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );
