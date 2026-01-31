@@ -47,6 +47,7 @@ export function CreateUserModal({ open, onClose }: CreateUserModalProps) {
       title="Создание пользователя"
       open={open}
       onCancel={onCancel}
+      closable={!isLoading}
       footer={null}
       centered
       width={620}

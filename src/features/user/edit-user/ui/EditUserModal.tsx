@@ -84,6 +84,7 @@ export function EditUserModal({ open, user, onClose }: EditUserModalProps) {
       title="Редактирование пользователя"
       open={open}
       onCancel={handleCancel}
+      closable={!isBusy}
       footer={null}
       centered
       width={620}
