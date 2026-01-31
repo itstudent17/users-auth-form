@@ -2,20 +2,25 @@ import React, { useState } from "react";
 import { Avatar, Button, List, Result, Spin, Typography } from "antd";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import type { User } from "@/entities";
 import { useUsersQuery } from "@/entities";
 import { AUTH_TOKEN_STORAGE_KEY } from "@/shared/config";
-import { Content, Footer, Header, Page } from "./UsersPage.styles";
-import { CreateUserModal } from "@/features";
+import { Clickable, Content, Footer, Header, LoadingPlaceholder, Page } from "./UsersPage.styles";
+import { CreateUserModal, EditUserModal } from "@/features";
 
 export function UsersPage() {
   const { data: users, isLoading, isError, error, refetch } = useUsersQuery();
   const navigate = useNavigate();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
 
   const handleLogout = () => {
     localStorage.removeItem(AUTH_TOKEN_STORAGE_KEY);
     navigate("/login", { replace: true });
   };
+
+  const openEdit = (user: User) => setEditingUser(user);
+  const closeEdit = () => setEditingUser(null);
 
   return (
     <Page>
@@ -35,7 +40,11 @@ export function UsersPage() {
       </Header>
 
       <Content>
-        {isLoading && <Spin tip="Загрузка..." />}
+        {isLoading && (
+          <Spin tip="Загрузка..." spinning>
+            <LoadingPlaceholder />
+          </Spin>
+        )}
 
         {isError && (
           <Result
@@ -58,8 +67,16 @@ export function UsersPage() {
               renderItem={(user) => (
                 <List.Item>
                   <List.Item.Meta
-                    avatar={<Avatar src={user.avatar} />}
-                    title={<Typography.Text strong>{user.name}</Typography.Text>}
+                    avatar={
+                      <Clickable onClick={() => openEdit(user)} aria-label="Редактировать пользователя">
+                        <Avatar src={user.avatar} />
+                      </Clickable>
+                    }
+                    title={
+                      <Clickable onClick={() => openEdit(user)} aria-label="Редактировать пользователя">
+                        <Typography.Text strong>{user.name}</Typography.Text>
+                      </Clickable>
+                    }
                     description={
                       <Typography.Text type="secondary">
                         Зарегистрирован {dayjs(user.createdAt).format("DD.MM.YYYY")}
@@ -80,6 +97,7 @@ export function UsersPage() {
       </Content>
 
       <CreateUserModal open={isCreateOpen} onClose={() => setIsCreateOpen(false)} />
+      <EditUserModal open={Boolean(editingUser)} user={editingUser} onClose={closeEdit} />
     </Page>
   );
 }

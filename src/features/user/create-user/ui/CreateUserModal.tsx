@@ -64,7 +64,10 @@ export function CreateUserModal({ open, onClose }: CreateUserModalProps) {
         <Form.Item
           label="Ссылка на аватарку"
           name="avatar"
-          rules={[{ required: true, whitespace: true, message: "Поле не заполнено" }]}
+          rules={[
+            { required: true, whitespace: true, message: "Поле не заполнено" },
+            { type: "url", message: "Введите корректную ссылку" }
+          ]}
         >
           <Input />
         </Form.Item>

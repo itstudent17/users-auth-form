@@ -16,7 +16,24 @@ export const Content = styled.div`
   max-width: 980px;
 `;
 
+export const LoadingPlaceholder = styled.div`
+  min-height: 240px;
+`;
+
 export const Footer = styled.div`
   margin-top: 24px;
+`;
+
+export const Clickable = styled.button`
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+
+  &:focus-visible {
+    outline: 2px solid #1677ff;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
 `;
 
