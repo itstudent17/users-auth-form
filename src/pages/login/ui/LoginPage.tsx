@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Form, Input, Typography, message } from "antd";
+import { useNavigate } from "react-router-dom";
 import { Actions, Content, FormShell, Header, LoginCard, Page } from "./LoginPage.styles";
 import { loginByCredentials } from "@/features";
 
@@ -10,11 +11,13 @@ type LoginFormValues = {
 
 export function LoginPage() {
   const [isAuthorizing, setIsAuthorizing] = useState(false);
+  const navigate = useNavigate();
 
   const onFinish = async (values: LoginFormValues) => {
     setIsAuthorizing(true);
     try {
       await loginByCredentials(values);
+      navigate("/users", { replace: true });
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "Ошибка авторизации";
